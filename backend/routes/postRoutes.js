@@ -1,13 +1,19 @@
 const express = require('express')
+const { getPosts, addPost, updatePost, likePost, dislikePost, deletePost } = require('../controllers/postController')
 const router = express.Router()
 
-router.get('/', (req, res) => {
-    return res.json({message: "Obtenir les posts"})
-})
+router.get('/', getPosts)
 
-router.post('/', (req, res) => {
-    return res.json({message: "Créer un post"})
-})
+router.post('/', addPost)
+
+router.put('/:id', updatePost)
+
+router.patch('/like-post/:id', likePost)
+
+router.patch('/dislike-post/:id', dislikePost)
+
+router.delete('/:id', deletePost)
+
 
 router.put('/:id', (req, res) => {
     return res.json({message: "modifier le post avec l'id: " +req.params.id})
