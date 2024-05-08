@@ -1,22 +1,57 @@
-const getPosts = (req, res)=>{
+const postModel = require('../models/postsModels');
 
-    res.json({
-        message: "Obtenir les posts en passant par le controlleur"
-    })
+const getPosts = async(req, res) => {
+    const posts = await postModel.find()
+    res.json(posts)
 }
 
-const addPost = (req, res)=>{
-    res.json({
-        message: "Ajouter un post en passant par le controlleur"
+const getPost = async(req, res)=>{
+    const postId = req.params.id
+    try{
+        await postModel.findById(postId)
+              .then((post) => {
+                res.json(post)
+              })
+
+    }catch(err){
+        res.status(404).json({message: "Post not found"})
+    }
+}
+
+const addPost = async (req, res)=>{
+    const {title, content, author} = req.body
+    if(!title || !content || !author){
+        res.status(400).json({message: "Missing some data"})
+    }
+    const post = await postModel.create({
+        title, 
+        content, 
+        author, 
+        likers:[]
     })
+    res.json(post)
 }
 
 
-const updatePost = (req, res)=>{(
-    res.json({
-        message: "Modifier le post ayant l'id: "  +req.params.id+ " en passant par le controlleur" 
-    })
-)}
+const updatePost = async(req, res) =>{
+    const postId = req.params.id
+    const {title, content} = req.body
+    try{
+        await postModel.findByIdAndUpdate(
+            postId, 
+            //req.body lorsqu'on veut envoyer tout le body
+            {
+                title,
+                content
+            },
+            {
+                new: true
+            }
+        ).then((post) => res.json(post))
+    }catch(err){
+        res.status(404).json({message:"Error updating post"})
+    }
+}
 
 
 const likePost  = (req, res)=>{(
@@ -42,10 +77,11 @@ const deletePost  = (req, res)=>{(
 
 module.exports = {
     getPosts,
+    getPost,
     addPost,
     updatePost,
     likePost,
     dislikePost,
     deletePost,
-  
+
 }

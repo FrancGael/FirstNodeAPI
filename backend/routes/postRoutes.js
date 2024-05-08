@@ -1,36 +1,28 @@
 const express = require('express')
-const { getPosts, addPost, updatePost, likePost, dislikePost, deletePost } = require('../controllers/postController')
+const { getPosts, addPost, updatePost, likePost, dislikePost, deletePost, getPost } = require('../controllers/postController')
 const router = express.Router()
 
+// Obtenir tous les postes
 router.get('/', getPosts)
 
+// Obtenir un post
+router.get('/:id',getPost)
+
+// Ajouter un post
 router.post('/', addPost)
 
+// Modifier un post
 router.put('/:id', updatePost)
+
+// Liker et disliker un post
 
 router.patch('/like-post/:id', likePost)
 
 router.patch('/dislike-post/:id', dislikePost)
 
+// Supprimer un post
 router.delete('/:id', deletePost)
 
 
-router.put('/:id', (req, res) => {
-    return res.json({message: "modifier le post avec l'id: " +req.params.id})
-})
-
-router.patch('/like-post/:id', (req, res) => {
-    return res.json({message: "Liker le post: " +req.params.id})
-})
-
-
-router.patch('/dislike-post/:id', (req, res) => {
-    return res.json({message: "Disliker le post: " +req.params.id})
-})
-
-
-router.delete('/:id', (req, res) => {
-    return res.json({message: "supprimer le post avec l'id: " +req.params.id})
-})
 
 module.exports = router
