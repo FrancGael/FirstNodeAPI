@@ -90,7 +90,6 @@ const deletePost  = async(req,res)=>{
     }
 }
 
-
 module.exports = {
     getPosts,
     getPost,
@@ -99,5 +98,4 @@ module.exports = {
     likePost,
     dislikePost,
     deletePost,
-
 }

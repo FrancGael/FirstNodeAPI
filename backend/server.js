@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv').config()
 const cors = require('cors')
 const connectDB = require('./Config/db.js')
+const cookieParser = require('cookie-parser')
 
 const port = process.env.PORT|| 8080
 
@@ -17,6 +18,7 @@ app.use(cors({
     origin: process.env.CLIENT_URL|| '*',
     credentials: true,
 }))
+app.use(cookieParser())
 
 // routes
 app.use('/api/posts', require('./routes/postRoutes'))
