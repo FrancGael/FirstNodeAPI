@@ -3,7 +3,7 @@ const dotenv = require('dotenv').config()
 const cors = require('cors')
 const connectDB = require('./Config/db.js')
 
-const port = process.env.PORT|| 3000
+const port = process.env.PORT|| 8080
 
 // DATABASE Connection
 connectDB()
@@ -23,5 +23,5 @@ app.use('/api/posts', require('./routes/postRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 
 app.listen(port,()=>{
-    console.log(`Server listening on ${port}\n\nLocal server: http://localhost:${port}`);
+    console.log(`Server listening from ${port}\n\nLocal server: http://localhost:${port}`);
 })

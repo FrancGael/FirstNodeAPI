@@ -54,25 +54,41 @@ const updatePost = async(req, res) =>{
 }
 
 
-const likePost  = (req, res)=>{(
-    res.json({
-        message: "le post ayant l'id: "  +req.params.id+ " a été liké en passant par le controlleur" 
-    })
-)}
+const likePost  = async(req, res) => {
+  try{
+       await  postModel.findByIdAndUpdate(
+       req.params.id,
+       { $addToSet: { likers: req.body.id } },
+       { new: true }
+    ).then((data) => res.status(200).send(data));
+  } catch(err){
+       res.status(400).json({message:"Error occured when liking"})
+    }
+};  
 
 
-const dislikePost  = (req, res)=>{(
-    res.json({
-        message: "le post ayant l'id: "  +req.params.id+ " a été disliké en passant par le controlleur" 
-    })
-)}
+const dislikePost  = async(req, res) => {
+    try{
+         await  postModel.findByIdAndUpdate(
+         req.params.id,
+         { $pull: { likers: req.body.id } },
+         { new: true }
+      ).then((data) => res.status(200).send(data));
+    } catch(err){
+         res.status(400).json({message:"Error occured when liking"})
+      }
+  }; 
 
+const deletePost  = async(req,res)=>{
+    try {
+        const postId = req.params.id
+        const delPost = await postModel.findByIdAndDelete(postId)
+        res.status(201).json(delPost);
 
-const deletePost  = (req, res)=>{(
-    res.json({
-        message: "le post ayant l'id: "  +req.params.id+ " a été supprimé en passant par le controlleur" 
-    })
-)}
+    } catch (error) {
+        res.status(422).json({essage: 'An error occured when deleting post'});
+    }
+}
 
 
 module.exports = {
