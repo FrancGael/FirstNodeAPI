@@ -17,7 +17,7 @@ function App() {
     <UserContextProvider>
       <NavBar/>
       <Toaster position='top-center' toastOptions={{duration: 5000}}/>
-      <div className='w-full h-[calc(100vh-70px)]'>
+      <div className='w-full h-full'>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/register' element={<Register />} />
