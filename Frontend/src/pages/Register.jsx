@@ -49,7 +49,7 @@ function Register() {
             <label className='font-semibold text-md' htmlFor="cpassword" >Confirmez votre mot de passe</label>
             <input className='ring-1 p-2 rounded-md focus:ring-slate-700' type="password" name='cPassword' value={user.confirm_password} onChange={(e) => setUser({...user, confirm_password:e.target.value})} id='cpassword' />
             <button className='p-4 ring-1 mt-2 rounded-md bg-neutral-950 text-neutral-200 text-lg hover:bg-transparent hover:text-neutral-700 transition-all ring-black' type='submit'>Enregistrer</button>
-            <p className='mt-4 mb-8'>Vous avez déjà un compte? <span><Link to='/login' className='font-semibold underline text-sky-800'>Connectez-Vous</Link></span></p>
+            <p className='mt-4 mb-8'>Voulez-vous vous connecter? <span><Link to='/login' className='font-semibold underline text-sky-800'>Connectez-Vous</Link></span></p>
         </form>
     </div>
   )

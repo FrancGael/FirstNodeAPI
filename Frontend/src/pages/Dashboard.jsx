@@ -1,17 +1,33 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { userContext } from '../../Context/UserContext'
 import AllPosts from '../Components/AllPosts'
 import CreatePosts from '../Components/Create-Posts'
+import axios from 'axios'
 
 function Dashboard() {
   const {loggedUser} = useContext(userContext)
    const [displayPosts, setDisplayPosts] = useState(true)
    const [createPosts, setCreatePosts] = useState(false)
+   const [userId, setUserId] = useState()
+   const [data, setData] = useState([])
 
    const handleClick = () => {
      setDisplayPosts(!displayPosts)
      setCreatePosts(!createPosts)
    }
+
+
+  const  GetPosts = async(user) => {
+    await axios.get(`/posts/user/${user._id}`)
+      .then((res) => {
+          if(res.status === 404) return toast.error(res.data.message)
+          setData([...data, res.data])
+      })
+  } 
+
+  useEffect(() => {
+    GetPosts(loggedUser);
+  }, [loggedUser])
 
   return (
     <div className='w-full h-full items-center max-w-[1200px] md:mx-auto my-4 py-4 px-2'>
@@ -22,12 +38,13 @@ function Dashboard() {
           <button className={`w-full p-4 ring-1 ring-gray-800 rounded-md  text-white text-lg ${createPosts ?  "bg-orange-600 font-bold" : "bg-slate-800"}`} onClick={handleClick}>Créer un post</button>
         </div>
         <div className='w-full md:w-2/3 h-full'>
-        {displayPosts && <AllPosts/>}
+        {displayPosts && data[0] &&  (
+            <AllPosts posts={data[0]} />
+          )
+        }
         {createPosts && <CreatePosts display={setCreatePosts} displayPosts={setDisplayPosts}/>}
         </div>
-
       </div>
-
     </div>
   )
 }

@@ -33,7 +33,7 @@ function CreatePosts({display, displayPosts}) {
         <input className='ring-1 p-2 rounded-md focus:ring-slate-700' type="text"  value={post.title} onChange={(e) => setPost({...post, title:e.target.value})} id='name' />
         <label className='font-semibold text-md' htmlFor="content">Contenu du post</label>
          <textarea className='w-full ring-1 rounded-md focus:ring-slate-700' id='content' rows='10' onChange={(e) => setPost({...post, content:e.target.value})} value={post.content} />
-        <button className='p-3 ring-1 mt-2 rounded-md bg-neutral-950 text-neutral-200 text-lg hover:bg-transparent hover:text-neutral-700 transition-all ring-black' type='submit'>Créer</button>
+        <button className='p-3 ring-1 mt-2 rounded-md bg-neutral-950 text-neutral-200 text-lg hover:bg-transparent hover:text-neutral-700 transition-all ring-black' type='submit'>Enregistrer</button>
         
     </form>
 </div>

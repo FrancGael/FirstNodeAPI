@@ -26,7 +26,7 @@ function NavBar() {
     const {loggedUser} = useContext(userContext)
     return (
     <nav className=" font-semibold bg-slate-600 text-white flex w-full h-[70px]">
-        <div className='max-w-[1200px] w-full flex mx-auto justify-between items-center'>
+        <div className='max-w-[1200px] w-full flex mx-auto justify-between items-center px-4'>
           <div>
             <p className='font-bold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600'> Logo</p>
           </div>

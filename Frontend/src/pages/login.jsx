@@ -46,7 +46,7 @@ function Login() {
             <label className='font-semibold text-md' htmlFor="password">Saisissez votre mot de passe</label>
             <input className='ring-1 p-2 rounded-md focus:ring-slate-700' type="password" name='password' value={user.password} onChange={(e) => setUser({...user, password:e.target.value})} id='password' />
             <button className='p-4 ring-1 mt-2 rounded-md bg-neutral-950 text-neutral-200 text-lg hover:bg-transparent hover:text-neutral-700 transition-all ring-black' type='submit'>Connecter</button>
-            <p className='mt-4 mb-8'>Vous avez déjà un compte? <span><Link to='/register' className='font-semibold underline text-sky-800'>Enregistrer</Link></span></p>
+            <p className='mt-4 mb-8'>Vous avez déjà un compte? <span><Link to='/register' className='font-semibold underline text-sky-800'>Créer un Compte</Link></span></p>
         </form>
     </div>
   )
