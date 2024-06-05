@@ -18,6 +18,7 @@ function CreatePosts({display, displayPosts}) {
             await axios.post('/posts',uPost)
               .then((res) => {
                 toast.success('Votre post a été créé')
+                location.reload();
                 display(false)
                 displayPosts(true)
               })

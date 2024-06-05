@@ -8,6 +8,7 @@ import NavBar from './Components/NavBar'
 import { Toaster } from 'react-hot-toast'
 import axios from 'axios'
 import { UserContextProvider } from '../Context/UserContext'
+import ModifyPost from './Components/ModifyPost'
 
 axios.defaults.baseURL = 'http://localhost:8080/api'
 axios.defaults.withCredentials = true
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/update/:id' element={<ModifyPost />} />
           <Route path='/login' element={<Login />} />
           <Route path='/dashboard' element={<Dashboard />} />
         </Routes>

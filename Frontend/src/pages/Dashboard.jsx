@@ -8,14 +8,13 @@ function Dashboard() {
   const {loggedUser} = useContext(userContext)
    const [displayPosts, setDisplayPosts] = useState(true)
    const [createPosts, setCreatePosts] = useState(false)
-   const [userId, setUserId] = useState()
    const [data, setData] = useState([])
+   const [updateList, setUpdateList] = useState(null)
 
    const handleClick = () => {
      setDisplayPosts(!displayPosts)
      setCreatePosts(!createPosts)
    }
-
 
   const  GetPosts = async(user) => {
     await axios.get(`/posts/user/${user._id}`)
@@ -27,8 +26,8 @@ function Dashboard() {
 
   useEffect(() => {
     GetPosts(loggedUser);
-  }, [loggedUser])
-
+  }, [loggedUser, updateList])
+  console.log(updateList)
   return (
     <div className='w-full h-full items-center max-w-[1200px] md:mx-auto my-4 py-4 px-2'>
        <h2 className='text-4xl font-bold'>{loggedUser && loggedUser.name}</h2>
@@ -39,7 +38,7 @@ function Dashboard() {
         </div>
         <div className='w-full md:w-2/3 h-full'>
         {displayPosts && data[0] &&  (
-            <AllPosts posts={data[0]} />
+            <AllPosts refreshPosts={setUpdateList} posts={data[0]} />
           )
         }
         {createPosts && <CreatePosts display={setCreatePosts} displayPosts={setDisplayPosts}/>}
