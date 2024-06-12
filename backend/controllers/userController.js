@@ -2,11 +2,18 @@ const { hashPassword, VerifPassword } = require("../Helpers/auth")
 const userModel = require("../models/usersModels")
 const jwt = require("jsonwebtoken")
 
-const getUsers = async(req, res) => {
-    res.json({
-        message: "Obtenir les utilisateurs en passant par le controlleur"
-    })
-}
+
+
+const getUsers = async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const post = await userModel.find({ userId });
+      res.status(200).json(post);
+    } catch (err) {
+      res.status(404).json({ message: err.message });
+    }
+  };
+
 
 const signUP = async(req, res) => {
     try {
@@ -62,7 +69,7 @@ const signIn = async(req, res,) => {
 
             jwt.sign({_id: user._id, name: user.name, email: user.email}, process.env.JWT_SECRET, {expiresIn: '7 days'}, (err, token) => {
                 if(err) throw err
-                res.cookie('token', token).json({status: 'error', message:" Vous etes connceté!"})
+                res.cookie('token', token).json({status: 'success', message:" Vous etes connceté!"})
             })
           })
        })
